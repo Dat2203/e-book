@@ -19,8 +19,8 @@ class FirebaseFirestoreHelper {
           await _firebaseFirestore.collection("categories").get();
 
       List<CategoryModel> categoriesList = querySnapshot.docs
-          .map((e) {
-            return
+              .map((e) {
+                return
             CategoryModel.fromJson(e.data());})
           .toList();
       return categoriesList;
@@ -37,7 +37,6 @@ class FirebaseFirestoreHelper {
 
       List<ProductModel> productModelList = querySnapshot.docs
           .map((e){
-            print(e.data());
             return ProductModel.fromJson(e.data());})
           .toList();
 

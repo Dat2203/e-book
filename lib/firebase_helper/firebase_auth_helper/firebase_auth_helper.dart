@@ -47,6 +47,7 @@ class FirebaseAuthHelper {
 
   void signOut() async {
     await _auth.signOut();
+    // Navigator.of(context,rootNavigator: true).pop();
   }
 
   Future<bool> changePassword(

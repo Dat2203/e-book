@@ -78,9 +78,6 @@ class _HomeState extends State<Home> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        ElevatedButton(onPressed: (){
-                          getCategoryList();
-                        }, child: Text("OK")),
                         const TopTitles(subtitle: "", title: "E Commerce"),
                         TextFormField(
                           controller: search,
@@ -204,56 +201,7 @@ class _HomeState extends State<Home> {
                                       itemBuilder: (ctx, index) {
                                         ProductModel singleProduct =
                                             productModelList[index];
-                                        return Container(
-                                          decoration: BoxDecoration(
-                                            color:Theme.of(context).primaryColor.withOpacity(0.3),
-                                            borderRadius:
-                                                BorderRadius.circular(8.0),
-                                          ),
-                                          child: Column(
-                                            children: [
-                                              const SizedBox(
-                                                height: 12.0,
-                                              ),
-                                              Image.network(
-                                                singleProduct.image,
-                                                height: 100,
-                                                width: 100,
-                                              ),
-                                              const SizedBox(
-                                                height: 12.0,
-                                              ),
-                                              Text(
-                                                singleProduct.name,
-                                                style: const TextStyle(
-                                                  fontSize: 18.0,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                              Text(
-                                                  "Price: \$${singleProduct.price}"),
-                                              const SizedBox(
-                                                height: 30.0,
-                                              ),
-                                              SizedBox(
-                                                height: 45,
-                                                width: 140,
-                                                child: OutlinedButton(
-                                                  onPressed: () {
-                                                    Routes.instance.push(
-                                                        widget: ProductDetails(
-                                                            singleProduct:
-                                                                singleProduct),
-                                                        context: context);
-                                                  },
-                                                  child: const Text(
-                                                    "Buy",
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        );
+                                        return _buildProductcard(singleProduct);
                                       }),
                                 ),
                   const SizedBox(
@@ -265,7 +213,7 @@ class _HomeState extends State<Home> {
     );
   }
 
-  _buildProductcard(ProductModel singleProduct){
+  Widget  _buildProductcard(ProductModel singleProduct){
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,

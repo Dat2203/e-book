@@ -1,8 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:youtube_ecommerce/constants/routes.dart';
 import 'package:youtube_ecommerce/firebase_helper/firebase_auth_helper/firebase_auth_helper.dart';
 import 'package:youtube_ecommerce/screens/about_us/about_us.dart';
+import 'package:youtube_ecommerce/screens/auth_ui/login/login.dart';
 import 'package:youtube_ecommerce/screens/change_password/change_password.dart';
 import 'package:youtube_ecommerce/screens/edit_profile/edit_profile.dart';
 import 'package:youtube_ecommerce/screens/favourite_screen/favourite_screen.dart';
@@ -10,6 +12,7 @@ import 'package:youtube_ecommerce/screens/order_screen/order_screen.dart';
 import 'package:youtube_ecommerce/widgets/primary_button/primary_button.dart';
 
 import '../../provider/app_provider.dart';
+import '../auth_ui/welcome/welcome.dart';
 
 class AccountScreen extends StatefulWidget {
   const AccountScreen({super.key});
@@ -60,8 +63,9 @@ class _AccountScreenState extends State<AccountScreen> {
                 Text(
                   appProvider.getUserInformation.email,
                 ),
-                SizedBox(height: 10,),
+                SizedBox(height: 7,),
                 SizedBox(
+                  height: 35,
                   width: 130,
                   child: PrimaryButton(
                     title: "Edit Profile",
@@ -111,9 +115,13 @@ class _AccountScreenState extends State<AccountScreen> {
                   title: const Text("Change Password"),
                 ),
                 ListTile(
-                  onTap: () {
-                    FirebaseAuthHelper.instance.signOut();
-
+                  onTap: ()async {
+                    try {
+                     FirebaseAuthHelper.instance.signOut();
+                     Routes.instance.pushAndRemoveUntil(widget:const Welcome(), context: context);
+                    } catch (e) {
+                      print('Error signing out: $e');
+                    }
                     setState(() {});
                   },
                   leading: const Icon(Icons.exit_to_app),
